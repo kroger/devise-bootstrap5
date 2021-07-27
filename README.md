@@ -1,52 +1,47 @@
-Add to your `Gemfile`
+# devise-bootstrap5
 
-	gem "devise"
-	gem "devise-i18n"
-	gem "devise-bootstrap"
-
-You don't need to copy the views
-
-	devise:views:bootstrap
-
-	rails generate devise:views -v mailer
-	rm -rf app/views/devise/shared
-
-or
-
-	rails generate devise:i18n:views -v mailer
-
-# Devise::Bootstrap
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/devise/bootstrap`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Devise views with Bootstrap 5 and i18n support for Rails 6.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+All you need to do is to add `devise`, `devise-i18n` and `devise-bootstrap5` to
+your `Gemfile`:
 
-```ruby
-gem 'devise-bootstrap'
-```
+	gem "devise"
+	gem "devise-i18n"
+	gem "devise-bootstrap5"
 
-And then execute:
+After configuring `devise` everything is ready to use. Rails will use the views
+defined in `devise-bootstrap5` instead of the `devise` ones.
 
-    $ bundle install
+You need `devise-i18n` even if your application is not internationalized since
+all views in `devise-bootstrap5` are internationalized and use the strings
+defined in `devise-i18n`.
 
-Or install it yourself as:
+## Customizing the Views
 
-    $ gem install devise-bootstrap
+If you want to customize the views you can run the following command to copy
+them to `app/views/devise`:
 
-## Usage
+	rails generate devise:views:bootstrap
 
-TODO: Write usage instructions here
+This command will install all views except for the mailer. If you want to
+install them as well, you should issue the default `devise` generator command:
 
-## Development
+	rails generate devise:views -v mailer
 
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+or the following command if you want to translate the email messages:
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+	rails generate devise:i18n:views -v mailer
 
-## Contributing
+Please keep in mind that both commands will also copy the shared files used by
+the views in `app/views/devise/shared`. For instance, if you ran
+`devise:views:bootstrap` to generate the bootstrap views and then ran `rails
+generate devise:views -v mailer` to generate the mailer views, the shared files
+will be replaced. If you need to customize the mailer views, I suggest you run
+the commands in the following order:
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/devise-bootstrap.
+	rails generate devise:views -v mailer         # the mailer views
+	# rails generate devise:i18n:views -v mailer  # or the mailer views internationalized
+	rm -rf app/views/devise/shared                # remove the original shared files
+	rails generate devise:views:bootstrap         # generate the bootstrap views with the shared files

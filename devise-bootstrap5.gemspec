@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["kroger@pedrokroger.net"]
 
   spec.summary       = "Devise with Bootstrap 5"
-  spec.description   = 'Devise views with Bootstrap 5 and i18n support for Rails 6 and above.'
+  spec.description   = 'Devise views with Bootstrap 5 and i18n support for Rails 6.'
   spec.homepage      = "https://defclass.net/devise-bootstrap5"
   spec.required_ruby_version = ">= 2.4.0"
 
